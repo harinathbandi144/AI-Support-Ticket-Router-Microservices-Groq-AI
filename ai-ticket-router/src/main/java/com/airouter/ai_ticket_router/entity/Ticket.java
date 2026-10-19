@@ -2,9 +2,13 @@ package com.airouter.ai_ticket_router.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 import java.time.Instant;
 
+
+@Data
 @Entity
 @Table(name = "tickets")
 public class Ticket {
