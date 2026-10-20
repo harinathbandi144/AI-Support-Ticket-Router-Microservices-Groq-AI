@@ -23,6 +23,7 @@ public class TicketService {
         ticket.setSubject(request.subject());
         ticket.setDescription(request.descrption());
         ticket.setRequesterEmail(request.requesterEmail());
+        ticket.setStatus(TicketStatus.OPEN);
 
         return TicketResponse.from(repository.save(ticket));
     }
@@ -36,14 +37,14 @@ public class TicketService {
         return repository.findAll(pageable).map(TicketResponse::from);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public TicketResponse updateStatus(Long id, TicketStatus status){
         Ticket ticket = findOrThrow(id);
         ticket.setStatus(status);
         return TicketResponse.from(repository.save(ticket));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void delete(Long id){
         Ticket ticket = findOrThrow(id);
         repository.delete(ticket);
