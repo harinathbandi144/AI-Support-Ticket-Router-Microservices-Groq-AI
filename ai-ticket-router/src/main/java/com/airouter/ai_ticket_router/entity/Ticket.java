@@ -61,7 +61,6 @@ public class Ticket {
         Instant now = Instant.now();
         this.createdAt = now;
         this.updatedAt = now;
-
         if(this.status == null){
             this.status = TicketStatus.OPEN;
         }
