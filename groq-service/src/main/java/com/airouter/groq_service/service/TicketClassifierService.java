@@ -5,8 +5,11 @@ import com.airouter.groq_service.dto.ClassifyRequest;
 import com.airouter.groq_service.dto.TicketClassification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -49,12 +52,17 @@ public class TicketClassifierService {
 
     public TicketClassification classify(ClassifyRequest request) {
 
-        return chatClient.prompt()
-                .user(user -> user
-                        .text(CLASSIFY_TEMPLATE.getTemplate())
-                        .param("subject", request.subject())
-                        .param("description", request.description()))
-                .call()
-                .entity(TicketClassification.class);
+        Prompt prompt = CLASSIFY_TEMPLATE.create(Map.of(
+                "subject",request.subject(),
+                "description", request.description()
+        ));
+        return chatClient.prompt().call().entity(TicketClassification.class);
+//        return chatClient.prompt()
+//                .user(user -> user
+//                        .text(CLASSIFY_TEMPLATE.getTemplate())
+//                        .param("subject", request.subject())
+//                        .param("description", request.description()))
+//                .call()
+//                .entity(TicketClassification.class);
     }
 }
