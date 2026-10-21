@@ -31,3 +31,5 @@ public class GlobalExceptionHandler{
         return ResponseEntity.status(status).body(new ApiError(Instant.now(),status.value(), message, path ));
     }
 }
+
+
