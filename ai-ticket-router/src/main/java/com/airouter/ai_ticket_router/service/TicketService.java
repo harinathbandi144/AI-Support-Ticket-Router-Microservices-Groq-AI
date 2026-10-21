@@ -4,6 +4,7 @@ import com.airouter.ai_ticket_router.dto.CreateTicketRequest;
 import com.airouter.ai_ticket_router.dto.TicketResponse;
 import com.airouter.ai_ticket_router.entity.Ticket;
 import com.airouter.ai_ticket_router.entity.TicketStatus;
+import com.airouter.ai_ticket_router.exception.ResourceNotFoundException;
 import com.airouter.ai_ticket_router.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -51,7 +52,7 @@ public class TicketService {
     }
 
     private Ticket findOrThrow(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("ticket not found"+id));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ticket not found "+id));
     }
 
 }
