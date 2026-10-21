@@ -1,4 +1,10 @@
 package com.airouter.ai_ticket_router.exception;
 
-public class ApiError {
-}
+import java.time.Instant;
+
+public record ApiError(
+        Instant timeStamp,
+        int status,
+        String message,
+        String path
+) {}

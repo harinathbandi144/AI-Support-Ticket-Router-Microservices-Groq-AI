@@ -4,17 +4,13 @@ package com.airouter.ai_ticket_router.controller;
 import com.airouter.ai_ticket_router.dto.CreateTicketRequest;
 import com.airouter.ai_ticket_router.dto.TicketResponse;
 import com.airouter.ai_ticket_router.dto.UpdateTicketStatusRequest;
-import com.airouter.ai_ticket_router.entity.Ticket;
-import com.airouter.ai_ticket_router.entity.TicketStatus;
 import com.airouter.ai_ticket_router.service.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
