@@ -34,3 +34,7 @@ build/
 
 ##Groq##
 .env
+<<<<<<< HEAD
+.env.example
+=======
+>>>>>>> 45ff9c0 (Groq LLM Implimeneted and tested)
