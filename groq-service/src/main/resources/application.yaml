@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+
+
+spring:
+  application:
+    name: groq-service
+  ai:
+    openai:
+      api-key: ${GROQ_API_KEY}
+      base-url: https://api.groq.com/openai/v1
+      chat:
+        model: openai/gpt-oss-120b
+      embedding:
+        enabled: false
+
+management:
+  endpoints:
+    web:
+      exposures:
+        include: health, metrics, info
