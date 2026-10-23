@@ -12,7 +12,7 @@ public record CreateTicketRequest(
 
         @NotBlank(message = "description should not be blank")
         @Size(max = 4000, message = "description should not exceed 4000")
-        String descrption,
+        String description,
 
         @NotBlank(message = "requesterEmail should not be blank")
         @Email(message = "requesterEmail must be a valid email")

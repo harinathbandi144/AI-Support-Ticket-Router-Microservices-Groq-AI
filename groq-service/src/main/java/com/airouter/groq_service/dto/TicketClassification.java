@@ -13,6 +13,6 @@ public record TicketClassification(
         String priority,
 
         @JsonPropertyDescription("the Support Team best suited to own this ticket. One of: BILLING_TEAM, TECHNICAL_SUPPORT, ACCOUNT_MANAGEMENT, PRODUCT_TEAM, GENERAL_SUPPORT")
-        String supportTeam
+        String suggestedTeam
 
 ) { }

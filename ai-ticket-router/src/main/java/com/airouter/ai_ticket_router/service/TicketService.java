@@ -1,5 +1,7 @@
 package com.airouter.ai_ticket_router.service;
 
+import com.airouter.ai_ticket_router.client.ClassifierClient;
+import com.airouter.ai_ticket_router.client.TicketClassification;
 import com.airouter.ai_ticket_router.dto.CreateTicketRequest;
 import com.airouter.ai_ticket_router.dto.TicketResponse;
 import com.airouter.ai_ticket_router.entity.Ticket;
@@ -17,14 +19,22 @@ import org.springframework.transaction.annotation.Transactional;
 public class TicketService {
 
     private final TicketRepository repository;
+    private final ClassifierClient classifierClient;
 
     @Transactional
     public TicketResponse create(CreateTicketRequest request){
+        TicketClassification classification = classifierClient.classify(request.subject(), request.description());
         Ticket ticket = new Ticket();
         ticket.setSubject(request.subject());
-        ticket.setDescription(request.descrption());
+        ticket.setDescription(request.description());
         ticket.setRequesterEmail(request.requesterEmail());
         ticket.setStatus(TicketStatus.OPEN);
+
+        //Coming from AI - Service
+        ticket.setSentiment(classification.sentiment());
+        ticket.setPriority(classification.priority());
+        ticket.setSuggestedTeam(classification.suggestedTeam());
+        ticket.setIntent(classification.intent());
 
         return TicketResponse.from(repository.save(ticket));
     }

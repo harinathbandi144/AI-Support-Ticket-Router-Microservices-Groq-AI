@@ -8,6 +8,10 @@ spring:
   profiles:
     active: h2
 
+app:
+  groq-service:
+    base-url: ${GROQ_SERVICE_BASE_URL:http://localhost:8081}
+    timeout-ms: 4000
 management:
   endpoints:
     web:
