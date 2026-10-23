@@ -5,6 +5,9 @@ import com.airouter.ai_ticket_router.dto.CreateTicketRequest;
 import com.airouter.ai_ticket_router.dto.TicketResponse;
 import com.airouter.ai_ticket_router.dto.UpdateTicketStatusRequest;
 import com.airouter.ai_ticket_router.service.TicketService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,10 +30,19 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @CircuitBreaker(name="ai-ticket-router",fallbackMethod = "aiBreakerFallback")
+    @Retry(name = "ai-ticket-router")
+    @RateLimiter( name = "ai-ticket-router")
     @GetMapping("/{id}")
     public ResponseEntity<TicketResponse> getById(@PathVariable Long id){
         TicketResponse response = service.getById(id);
         return ResponseEntity.ok(response);
+    }
+    public ResponseEntity<TicketResponse> aiBreakerFallback(
+            Long id, Throwable ex) {
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .build();
     }
 
 //    @GetMapping
