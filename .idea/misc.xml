@@ -6,6 +6,8 @@
       <list>
         <option value="$PROJECT_DIR$/ai-ticket-router/pom.xml" />
         <option value="$PROJECT_DIR$/groq-service/pom.xml" />
+        <option value="$PROJECT_DIR$/apigateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/service-discovery/pom.xml" />
       </list>
     </option>
   </component>
