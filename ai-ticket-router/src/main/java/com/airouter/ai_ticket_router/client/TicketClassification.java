@@ -1,4 +1,4 @@
-package com.airouter.groq_service.client;
+package com.airouter.ai_ticket_router.client;
 
 public record TicketClassification(
         String intent,
